@@ -18,6 +18,10 @@ body {
   position: relative;
 }
 
+*::-webkit-scrollbar{
+  display: none;
+}
+
 .navbar {
   display: flex;
   align-items: center;

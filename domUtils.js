@@ -21,9 +21,14 @@ export function createMainCard(svg, descriptionDiv) {
       const mainContainer = document.querySelector('.main-container');
       const pianoRollContainer = document.getElementById('pianoRollContainer');
       const mainCard = document.querySelector('.main-card');
+      const cardList = document.querySelector('.card-list');
 
       mainCard.style.padding = '20px'
       mainCard.style.height = '350px'
+
+      cardList.style.height = '92vh'
+      cardList.style.overflow = 'auto'
+
 
       largeSvgContainer.style.padding = '5px'
 
