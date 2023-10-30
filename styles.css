@@ -35,6 +35,7 @@ body {
   height: 40px;
   width: auto;
   fill: white;
+  cursor: pointer;
 }
 
 .main-container {
@@ -43,7 +44,7 @@ body {
   padding: 10px;
 }
 
-.main-card {
+#main-card {
   height: 0px;
   background-color: #ccc;
   border-radius: 10px;

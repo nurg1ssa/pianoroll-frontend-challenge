@@ -20,14 +20,11 @@ export function createMainCard(svg, descriptionDiv) {
       // Update the CSS classes
       const mainContainer = document.querySelector('.main-container');
       const pianoRollContainer = document.getElementById('pianoRollContainer');
-      const mainCard = document.querySelector('.main-card');
+      const mainCard = document.querySelector('#main-card');
       const cardList = document.querySelector('.card-list');
 
       mainCard.style.padding = '20px'
       mainCard.style.height = '350px'
-
-      cardList.style.height = '92vh'
-      cardList.style.overflow = 'auto'
 
 
       largeSvgContainer.style.padding = '5px'
@@ -37,7 +34,40 @@ export function createMainCard(svg, descriptionDiv) {
       mainContainer.style.gridTemplateColumns = '3fr 1fr';
       mainContainer.style.gridColumnGap = '20px'
 
+      cardList.style.height = '92vh'
+      cardList.style.overflow = 'auto'
+
       pianoRollContainer.style.gridTemplateColumns = '1fr';
 
       return { largeSvgContainer, cardDescription }
+}
+
+//Returning all as it was
+export function revertMainPage() {
+
+      const largeSvgContainer = document.getElementById('large-svg-container');
+      const cardDescription = document.getElementById('card-description');
+      const mainCard = document.querySelector('#main-card');
+      const cardList = document.querySelector('.card-list');
+      const pianoRollContainer = document.getElementById('pianoRollContainer');
+      const mainContainer = document.querySelector('.main-container');
+
+      largeSvgContainer.style.removeProperty('padding')
+      cardDescription.style.removeProperty('padding')
+      
+      clearElement(largeSvgContainer);
+      clearElement(cardDescription);
+
+      mainCard.style.height = '0px'
+      mainCard.style.padding = '0px'
+
+      mainContainer.style.gridTemplateColumns = '1fr';
+      mainContainer.style.gridColumnGap = '0px'
+
+ 
+
+      pianoRollContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
+
+      cardList.style.removeProperty('height');
+      cardList.style.removeProperty('overflow');
 }

@@ -1,5 +1,5 @@
 import PianoRoll from './pianoroll.js';
-import { clearElement, createMainCard } from './domUtils.js';
+import { clearElement, createMainCard, revertMainPage } from './domUtils.js';
 
 class PianoRollDisplay {
   constructor(csvURL) {
@@ -38,7 +38,7 @@ class PianoRollDisplay {
     cardDiv.appendChild(descriptionDiv);
 
     cardDiv.addEventListener('click', () => {
-      createMainCard(svg,descriptionDiv)
+      createMainCard(svg, descriptionDiv)
     });
 
     return { cardDiv, svg }
@@ -66,4 +66,10 @@ class PianoRollDisplay {
 document.addEventListener("DOMContentLoaded", async () => {
   const csvToSVG = new PianoRollDisplay();
   await csvToSVG.generateSVGs();
+
+  const logo = document.querySelector('.logo-container');
+
+  logo.addEventListener('click', () => {
+    revertMainPage()
+  });
 });
