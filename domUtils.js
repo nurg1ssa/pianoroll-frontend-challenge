@@ -4,6 +4,7 @@ export function clearElement(element) {
       }
 }
 
+//creating Main Card
 export function createMainCard(svg, descriptionDiv) {
       const largeSvgContainer = document.getElementById('large-svg-container');
       const cardDescription = document.getElementById('card-description');
@@ -31,10 +32,19 @@ export function createMainCard(svg, descriptionDiv) {
 
       cardDescription.style.padding = '5px'
 
-      mainContainer.style.gridTemplateColumns = '3fr 1fr';
-      mainContainer.style.gridColumnGap = '20px'
+      //setting Main Card Page on small screeens
+      if (window.innerWidth <= 600) {
+            pianoRollContainer.style.gridTemplateColumns = '1fr';
+            mainContainer.style.gridRowGap = '20px'
+            cardList.style.height = '40vh'
 
-      cardList.style.height = '92vh'
+      } else {
+            mainContainer.style.gridTemplateColumns = '3fr 1fr';
+            mainContainer.style.gridColumnGap = '20px'
+
+            cardList.style.height = '92vh'
+      }
+
       cardList.style.overflow = 'auto'
 
       pianoRollContainer.style.gridTemplateColumns = '1fr';
@@ -54,7 +64,7 @@ export function revertMainPage() {
 
       largeSvgContainer.style.removeProperty('padding')
       cardDescription.style.removeProperty('padding')
-      
+
       clearElement(largeSvgContainer);
       clearElement(cardDescription);
 
@@ -63,10 +73,13 @@ export function revertMainPage() {
 
       mainContainer.style.gridTemplateColumns = '1fr';
       mainContainer.style.gridColumnGap = '0px'
-
- 
-
-      pianoRollContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
+      
+      //setting Main Page on small screens
+      if (window.innerWidth <= 600) {
+            pianoRollContainer.style.gridTemplateColumns = '1fr';
+      } else {
+            pianoRollContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
+      }
 
       cardList.style.removeProperty('height');
       cardList.style.removeProperty('overflow');

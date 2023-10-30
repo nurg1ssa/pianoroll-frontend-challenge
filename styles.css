@@ -100,8 +100,6 @@ h1 {
   background-color: #ccc;
 }
 
-
-
 @media screen and (max-width: 600px) {
   #pianoRollContainer {
     grid-template-columns: 1fr;
