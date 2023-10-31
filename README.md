@@ -1,5 +1,19 @@
 # PianoRoll Frontend Task
 
+### Download and Use `http-server`
+
+To run this project, you can use a simple web server like `http-server`. Follow these steps to install and use it:
+
+1. Open your terminal or command prompt.
+
+2. Install `http-server` globally by running the following command:
+   ```bash
+   npm install -g http-server
+Once the installation is complete, you can start the web server by running:
+   ```bash
+	 http-server
+```
+[![Video Demo]](https://youtu.be/3ibdYONq_mc)
 ## Introduction
 
 You will be building on top of a demo code that generates a widget for browsing Piano Rolls - the core element of [Piano Roll](https://pianoroll.io).
