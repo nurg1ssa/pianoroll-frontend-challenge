@@ -140,6 +140,16 @@ export function attachSelectionListeners() {
                   rect.classList.add('selected-range');
                   largeSvgContainer.appendChild(rect);
                   selectedRange = rect;
+
+                  // Create a reset button
+                  const resetButton = document.createElement('div');
+                  resetButton.textContent = 'click to reset';
+                  rect.addEventListener('click', () => {
+                        resetSelection();
+                  });
+
+                  // Append the reset button inside the selected range
+                  selectedRange.appendChild(resetButton);
             }
 
             selectedRange.style.left = startX + 'px';
@@ -149,4 +159,16 @@ export function attachSelectionListeners() {
             startPointSpan.textContent = `${startX}px`;
             endPointSpan.textContent = `${endX}px`;
       }
+
+      function resetSelection() {
+            // Reset the selection by removing the selected range
+            if (selectedRange) {
+                  largeSvgContainer.removeChild(selectedRange);
+                  selectedRange = null;
+                  startPointSpan.textContent = ''; // Clear the start point text
+                  endPointSpan.textContent = ''; // Clear the end point text
+                  resetButton.textContent = '';
+            }
+      }
+
 }
