@@ -36,6 +36,7 @@ class PianoRollDisplay {
     cardDiv.appendChild(svg);
     cardDiv.appendChild(descriptionDiv);
 
+    //setting clicked card as main
     cardDiv.addEventListener('click', () => {
       createMainCard(svg, descriptionDiv);
       attachSelectionListeners();
@@ -62,11 +63,12 @@ class PianoRollDisplay {
     }
   }
 }
-
+// card list downloads when web page is loaded
 document.addEventListener("DOMContentLoaded", async () => {
   const csvToSVG = new PianoRollDisplay();
   await csvToSVG.generateSVGs();
 
+  //returning to main page when click Logo
   const logo = document.querySelector('.logo-container');
   logo.addEventListener('click', () => {
     revertMainPage();

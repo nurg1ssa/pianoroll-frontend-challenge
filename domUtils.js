@@ -17,45 +17,33 @@ export function createMainCard(svg, descriptionDiv) {
       const pickedCardDescription = descriptionDiv.cloneNode(true);
       largeSvgContainer.appendChild(pickedCardSvg);
       cardDescription.appendChild(pickedCardDescription);
-      cardDescription
 
       // Update the CSS classes
       const mainContainer = document.querySelector('.main-container');
       const pianoRollContainer = document.getElementById('pianoRollContainer');
       const mainCard = document.querySelector('#main-card');
       const cardList = document.querySelector('.card-list');
-
-      mainCard.style.padding = '20px'
-      mainCard.style.height = '350px'
-
-
-      largeSvgContainer.style.padding = '5px'
-
-      cardDescription.style.padding = '5px'
-
-      pianoRollContainer.style.gridTemplateColumns = '1fr';
-
-      //setting Main Card Page on small screeens
-      if (window.innerWidth <= 600) {
-            mainContainer.style.gridRowGap = '20px'
-            cardList.style.height = '40vh'
-
-      } else {
-            mainContainer.style.gridTemplateColumns = '3fr 1fr';
-            mainContainer.style.gridColumnGap = '20px'
-            cardList.style.height = '92vh'
-      }
-
+      cardList.classList.add()
+      mainCard.style.display = 'grid'
+      pianoRollContainer.style.gridTemplateColumns = '1fr'
+      cardList.style.height = '92vh'
       cardList.style.overflow = 'auto'
 
-      pianoRollContainer.style.gridTemplateColumns = '1fr';
+      //setting Main Card Page on small screeens
+      function setGridColumns() {
+            if (mainCard.style.display == 'grid') {
+                  mainContainer.style.gridTemplateColumns = window.innerWidth <= 600 ? '1fr' : '3fr 1fr';
+            }
+      }
+      window.addEventListener('resize', setGridColumns);
+      // Initial setup
+      setGridColumns();
 
       return { largeSvgContainer, cardDescription }
 }
 
 //Returning all as it was
 export function revertMainPage() {
-
       const largeSvgContainer = document.getElementById('large-svg-container');
       const cardDescription = document.getElementById('card-description');
       const mainCard = document.querySelector('#main-card');
@@ -69,18 +57,19 @@ export function revertMainPage() {
       clearElement(largeSvgContainer);
       clearElement(cardDescription);
 
-      mainCard.style.height = '0px'
-      mainCard.style.padding = '0px'
+      mainCard.style.display = 'none'
+      mainContainer.style.gridTemplateColumns = '1fr'
 
-      mainContainer.style.gridTemplateColumns = '1fr';
-      mainContainer.style.gridColumnGap = '0px'
-
-      //setting Main Page on small screens
-      if (window.innerWidth <= 600) {
-            pianoRollContainer.style.gridTemplateColumns = '1fr';
-      } else {
-            pianoRollContainer.style.gridTemplateColumns = '1fr 1fr 1fr';
+      //setting Main Page on small screeens
+      function setPianoRollGridColumns() {
+            if (mainCard.style.display == 'none') {
+                  pianoRollContainer.style.gridTemplateColumns = window.innerWidth <= 600 ? '1fr' : '1fr 1fr 1fr';
+            }
       }
+
+      window.addEventListener('resize', setPianoRollGridColumns);
+      // Initial setup
+      setPianoRollGridColumns()
 
       cardList.style.removeProperty('height');
       cardList.style.removeProperty('overflow');
@@ -146,8 +135,8 @@ export function attachSelectionListeners() {
                   resetButton.textContent = 'click to reset';
                   rect.addEventListener('click', () => {
                         resetSelection();
+                        resetButton.textContent = '';
                   });
-
                   // Append the reset button inside the selected range
                   selectedRange.appendChild(resetButton);
             }
@@ -167,8 +156,6 @@ export function attachSelectionListeners() {
                   selectedRange = null;
                   startPointSpan.textContent = ''; // Clear the start point text
                   endPointSpan.textContent = ''; // Clear the end point text
-                  resetButton.textContent = '';
             }
       }
-
 }
