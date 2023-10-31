@@ -17,6 +17,7 @@ export function createMainCard(svg, descriptionDiv) {
       const pickedCardDescription = descriptionDiv.cloneNode(true);
       largeSvgContainer.appendChild(pickedCardSvg);
       cardDescription.appendChild(pickedCardDescription);
+      cardDescription
 
       // Update the CSS classes
       const mainContainer = document.querySelector('.main-container');
@@ -32,16 +33,16 @@ export function createMainCard(svg, descriptionDiv) {
 
       cardDescription.style.padding = '5px'
 
+      pianoRollContainer.style.gridTemplateColumns = '1fr';
+
       //setting Main Card Page on small screeens
       if (window.innerWidth <= 600) {
-            pianoRollContainer.style.gridTemplateColumns = '1fr';
             mainContainer.style.gridRowGap = '20px'
             cardList.style.height = '40vh'
 
       } else {
             mainContainer.style.gridTemplateColumns = '3fr 1fr';
             mainContainer.style.gridColumnGap = '20px'
-
             cardList.style.height = '92vh'
       }
 
@@ -73,7 +74,7 @@ export function revertMainPage() {
 
       mainContainer.style.gridTemplateColumns = '1fr';
       mainContainer.style.gridColumnGap = '0px'
-      
+
       //setting Main Page on small screens
       if (window.innerWidth <= 600) {
             pianoRollContainer.style.gridTemplateColumns = '1fr';
@@ -83,4 +84,69 @@ export function revertMainPage() {
 
       cardList.style.removeProperty('height');
       cardList.style.removeProperty('overflow');
+}
+
+
+export function attachSelectionListeners() {
+      let isSelecting = false;
+      let selectionStartX = 0;
+      let selectionEndX = 0;
+      let selectedRange;
+
+      const largeSvgContainer = document.getElementById('large-svg-container');
+      const cardDescription = document.getElementById('card-description');
+
+      // Create "Start Point" and "End Point" elements
+      const rangeContainer = document.createElement('div');
+      const startPointLabel = document.createElement('div');
+      startPointLabel.textContent = 'Start Point: ';
+      const startPointSpan = document.createElement('span');
+      startPointLabel.appendChild(startPointSpan);
+
+      const endPointLabel = document.createElement('div');
+      endPointLabel.textContent = 'End Point: ';
+      const endPointSpan = document.createElement('span');
+      endPointLabel.appendChild(endPointSpan);
+      rangeContainer.classList.add('range-container')
+      // Append the labels to cardDescription
+      rangeContainer.appendChild(startPointLabel);
+      rangeContainer.appendChild(endPointLabel);
+      cardDescription.appendChild(rangeContainer);
+
+
+      largeSvgContainer.addEventListener('mousedown', (e) => {
+            isSelecting = true;
+            selectionStartX = e.clientX - largeSvgContainer.getBoundingClientRect().left;
+            updateSelection();
+      });
+
+      largeSvgContainer.addEventListener('mousemove', (e) => {
+            if (isSelecting) {
+                  selectionEndX = e.clientX - largeSvgContainer.getBoundingClientRect().left;
+                  updateSelection();
+            }
+      });
+
+      largeSvgContainer.addEventListener('mouseup', () => {
+            isSelecting = false;
+      });
+
+      function updateSelection() {
+            const startX = Math.min(selectionStartX, selectionEndX);
+            const endX = Math.max(selectionStartX, selectionEndX);
+
+            if (!selectedRange) {
+                  const rect = document.createElement('div');
+                  rect.classList.add('selected-range');
+                  largeSvgContainer.appendChild(rect);
+                  selectedRange = rect;
+            }
+
+            selectedRange.style.left = startX + 'px';
+            selectedRange.style.width = endX - startX + 'px';
+
+            // Update the start and end points
+            startPointSpan.textContent = `${startX}px`;
+            endPointSpan.textContent = `${endX}px`;
+      }
 }

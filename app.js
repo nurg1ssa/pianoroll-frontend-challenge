@@ -1,5 +1,5 @@
 import PianoRoll from './pianoroll.js';
-import { clearElement, createMainCard, revertMainPage } from './domUtils.js';
+import { clearElement, createMainCard, revertMainPage, attachSelectionListeners } from './domUtils.js';
 
 class PianoRollDisplay {
   constructor(csvURL) {
@@ -25,7 +25,6 @@ class PianoRollDisplay {
 
     // Create and append other elements to the card container as needed
     const descriptionDiv = document.createElement('div');
-    descriptionDiv.classList.add('description');
     descriptionDiv.textContent = `This is a piano roll number ${rollId + 1}`;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -38,10 +37,11 @@ class PianoRollDisplay {
     cardDiv.appendChild(descriptionDiv);
 
     cardDiv.addEventListener('click', () => {
-      createMainCard(svg, descriptionDiv)
+      createMainCard(svg, descriptionDiv);
+      attachSelectionListeners();
     });
 
-    return { cardDiv, svg }
+    return { cardDiv, svg };
   }
 
   async generateSVGs() {
@@ -55,7 +55,7 @@ class PianoRollDisplay {
       const end = start + 60;
       const partData = this.data.slice(start, end);
 
-      const { cardDiv, svg } = this.preparePianoRollCard(it)
+      const { cardDiv, svg } = this.preparePianoRollCard(it);
 
       pianoRollContainer.appendChild(cardDiv);
       const roll = new PianoRoll(svg, partData);
@@ -68,8 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await csvToSVG.generateSVGs();
 
   const logo = document.querySelector('.logo-container');
-
   logo.addEventListener('click', () => {
-    revertMainPage()
+    revertMainPage();
   });
 });
