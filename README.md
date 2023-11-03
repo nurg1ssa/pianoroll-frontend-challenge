@@ -16,6 +16,10 @@ Once the installation is complete, you can start the web server by running:
 
 
 
+https://github.com/nurg1ssa/pianoroll-frontend-challenge/assets/57891947/1f16237e-424f-4fc4-b7ba-0ac5767a7662
+
+
+
 ## Introduction
 
 You will be building on top of a demo code that generates a widget for browsing Piano Rolls - the core element of [Piano Roll](https://pianoroll.io).
