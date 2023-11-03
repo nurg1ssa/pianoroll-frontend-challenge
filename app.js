@@ -1,5 +1,7 @@
 import PianoRoll from './pianoroll.js';
-import { clearElement, createMainCard, revertMainPage, attachSelectionListeners } from './domUtils.js';
+import { clearElement, createMainCard, revertMainPage } from './utils/domUtils.js';
+import { attachSelectionListeners } from './utils/selectRange.js';
+
 
 class PianoRollDisplay {
   constructor(csvURL) {
